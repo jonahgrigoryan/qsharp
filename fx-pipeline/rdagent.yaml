@@ -7,3 +7,8 @@ target_reward: 8
 patience: 25
 reward_script: rewards/fundingpips_reward.py
 reward_class: FundingPipsReward
+
+developer:
+  env: local
+  loop:
+    max_round: 3

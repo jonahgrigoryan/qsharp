@@ -2,7 +2,7 @@
 
 qlib_init:
   #provider_uri: "~/fx-pipeline/data/qlib"
-  provider_uri: "/Users/jonahkesoyan/qsharp/fx-pipeline/data/qlib"
+  provider_uri: "/workspace/fx-pipeline/data/qlib"
   region: us     
 
 # 1. Register the custom factor so Qlib can import it
@@ -61,3 +61,9 @@ backtest:
   end_time: 2025-05-30
   benchmark: EURUSD
   account: 100000 
+  executor:
+    class: SimulatorExecutor
+    module_path: qlib.backtest.executor
+    kwargs:
+      time_per_step: 15min
+      generate_portfolio_metrics: true

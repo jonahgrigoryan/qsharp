@@ -1,0 +1,18 @@
+# Ignore datasets, logs, model artifacts, and local virtual env
+fx-pipeline/data/qlib/
+log/
+mlruns/
+git_ignore_folder/
+pickle_cache/
+rdagent-env/
+.DS_Store
+__pycache__/
+*.pkl
+*.csv
+
+# Ignore VSCode/IDE artifacts
+.vscode/
+.idea/
+
+# Ignore DVC cache
+.dvc/cache/ 

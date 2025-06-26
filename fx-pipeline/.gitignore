@@ -1,0 +1,12 @@
+data/raw/
+data/processed/
+data/qlib/
+data/raw_clean/
+logs/
+models/
+.env
+__pycache__/
+*.pyc
+
+# Allow .dvc files to be tracked
+!data/*.dvc

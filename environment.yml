@@ -1,0 +1,29 @@
+name: rdagent
+channels:
+  - conda-forge
+  - defaults
+
+# Core interpreter version
+dependencies:
+  - python=3.10
+  # ---------------------------------
+  # Core scientific stack
+  - numpy>=1.24
+  - pandas>=2.2
+  - scikit-learn>=1.4
+  - lightgbm=4.6.0
+  # ---------------------------------
+  # Research / back-testing
+  - ta=0.11.0               # pure-python technical analysis
+  - pytest                  # unit-testing
+  # ---------------------------------
+  # Web / API & monitoring (pip-only)
+  - pip
+  - pip:
+      - pyqlib==0.9.6          # Microsoft Qlib (AI quant platform)
+      - rdagent              # Research-and-Development Agent from Microsoft
+      - fastapi==0.115.1
+      - uvicorn[standard]==0.29.0
+      - redis==5.0.4
+      - prometheus-client==0.20.0
+      - dvc[s3]==3.50.2      # optional: data versioning with S3 support 

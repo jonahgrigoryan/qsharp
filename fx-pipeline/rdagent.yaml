@@ -1,0 +1,9 @@
+data_path: ~/.qlib/forex_m1
+model_type: lightgbm
+objective: fundingpips_reward
+max_iterations: 100
+timeframe: M15
+target_reward: 8
+patience: 25
+reward_script: rewards/fundingpips_reward.py
+reward_class: FundingPipsReward

@@ -1,0 +1,63 @@
+# Baseline experiment configuration – generated 2025-06-15
+
+qlib_init:
+  #provider_uri: "~/fx-pipeline/data/qlib"
+  provider_uri: "/Users/jonahkesoyan/qsharp/fx-pipeline/data/qlib"
+  region: us     
+
+# 1. Register the custom factor so Qlib can import it
+autoload:
+  custom_ops:
+    - module_path: factors.mql5_baseline
+      class_name: MQL5BaselineAlpha
+
+# 2. Task definition (very minimal – just to obtain a benchmark)
+#    You can tweak model params / segments later.
+task:
+  model:
+    class: LGBModel
+    module_path: qlib.contrib.model.gbdt
+    kwargs:
+      num_leaves: 64
+      learning_rate: 0.05
+      n_estimators: 200
+      subsample: 0.8
+      colsample_bytree: 0.8
+  dataset:
+    class: DatasetH
+    module_path: qlib.data.dataset
+    kwargs:
+      handler:
+        class: DataHandlerLP
+        module_path: qlib.data.dataset.handler
+        kwargs:
+          start_time: 2022-01-03
+          end_time: 2025-05-30
+          instruments: all
+          data_loader:
+            class: QlibDataLoader
+            module_path: qlib.data.dataset.loader
+            kwargs:
+              config:
+                feature:
+                  - ["$open", "$high", "$low", "$close", "$volume"]
+                  - ["open", "high", "low", "close", "volume"]
+              freq: 15min
+          infer_processors:
+            - class: MQL5BaselineAlpha
+              module_path: factors.mql5_baseline
+      segments:
+        train: [2022-01-03, 2023-12-31]
+        valid: [2024-01-01, 2024-12-31]
+        test:  [2025-01-01, 2025-05-30]
+record:
+  - class: SignalRecord
+    module_path: qlib.workflow.record_temp
+    kwargs: {model: <MODEL>, dataset: <DATASET>}
+
+# 3. Backtest & analysis settings (use defaults)
+backtest:
+  start_time: 2022-01-03
+  end_time: 2025-05-30
+  benchmark: EURUSD
+  account: 100000 
